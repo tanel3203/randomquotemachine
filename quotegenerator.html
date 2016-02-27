@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+    	<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head 
+             content must come *after* these tags -->
+
+        <title>Random Quote Machine</title>
+    	
+    	<!-- Bootstrap -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    	<!-- <link href="css/mystyles.css" rel="stylesheet"> -->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    	
+        
+    
+
+    <style>
+
+        .container {
+            margin-top: 100px;
+
+            min-height: 10px;
+            min-width: 10px;
+            background: rgba(50,50,50,1);
+
+            padding-bottom:10px;
+        }
+        #currQuote {
+            
+        }
+        #quoteText, #quoteAuthor, #nextButton {
+            color:white;
+        }
+         
+    </style>
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div id="currQuote" class="row row-content">
+
+                <div class="col-md-8">
+                    <blockquote>
+                        <div id="quoteText"></div>
+                    </blockquote>
+                </div>
+
+                <div class="col-md-4">
+                    <blockquote>
+                        <footer>
+                            <div id="quoteAuthor"></div>
+                        </footer>
+                    </blockquote>
+                </div>
+
+            </div>
+            <div class="row row-content center-block">
+                <div class="col-md-12 col-md-offset-5">
+                    <button id="nextButton" class="btn btn-secondary" >Next Quote</button> 
+                    <!--onclick="nextQuote()"-->
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <script>
+
+            var quotes = [
+                            {quote: "One man has enthusiasm for 30 minutes, another for 30 days, but it is the man who has it for 30 years who makes a success of his life." ,
+                            author: "Edward B. Butler"
+                            },
+                            {quote: "Find the inputs that produce the outputs you want, then make them the focus of most of your time and energy. Ruthlessly weed out the rest",
+                            author: "Josh Kaufman"
+                            },
+                            {quote: "Most men will not risk their life for money but will risk their life for ribbons (army, races, competitions)",
+                            author: "Brian Tracy"
+                            },
+                            {quote: "Under the right circumstances, groups are remarkably intelligent, and are often smarter than the smartest people in them ",
+                            author: "James Surowiecki"
+                            },
+                            {quote: "It does not matter how slow you go as long as you do not stop ",
+                            author: "Confucius"
+                            }
+            ];
+
+            var curr = 0
+            function initQuotes() {
+                // Get the div's
+                var quoteText = document.getElementById("quoteText");
+                var quoteAuthor = document.getElementById("quoteAuthor");
+
+                // create an element for HTML to put into quoteText and quoteAuthor div's
+                var currentQuote = document.createElement("p");
+                var currentAuthor = document.createElement("p");
+                // put into the currentQuote element the current quote
+                
+                currentQuote.innerHTML = quotes[curr].quote;
+                currentAuthor.innerHTML = quotes[curr].author;
+
+                // add it to the page
+                quoteText.appendChild(currentQuote);
+                quoteAuthor.appendChild(currentAuthor);
+            }
+            
+            function removeQuotes() {
+
+
+                var currentQuote = document.getElementById("quoteText").lastChild;
+                var currentAuthor = document.getElementById("quoteAuthor").lastChild;
+
+                quoteText.removeChild(currentQuote);
+                quoteAuthor.removeChild(currentAuthor);
+            }
+
+            function plusOne(){
+                        if (curr < (quotes.length-1)) {
+                            curr++;
+                        } else {
+                            curr = 0;
+                        }
+            }
+
+            $("#nextButton").click(function() {
+                var newCol = "rgba("+rgba()+",1)"
+                plusOne();
+                $("#currQuote").fadeOut(200, function() {
+                        removeQuotes();
+                });
+               $("#currQuote").fadeIn(200, function() {
+                        initQuotes();
+                        document.getElementsByTagName("body")[0].style.backgroundColor = newCol;
+                        document.getElementById("nextButton").style.backgroundColor = newCol;
+                });
+
+               $("body").fadeTo(1200, function() {                     
+
+                });
+            });
+/*
+            function nextQuote(){
+
+
+                if (curr < (quotes.length-1)) {
+                    curr++;
+                } else {
+                    curr = 0;
+                }
+                removeQuotes();
+                initQuotes();
+
+            }
+*/
+
+            function rgba() {
+                var r = Math.floor(Math.random()*255)+1;
+                var g = Math.floor(Math.random()*255)+1;
+                var b = Math.floor(Math.random()*255)+1;
+
+                return r+","+g+","+b;
+            }
+
+
+            initQuotes();
+
+        </script>
+    </body>
+
+</html>
