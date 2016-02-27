@@ -12,6 +12,8 @@
     	
     	<!-- Bootstrap -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
     	<!-- <link href="css/mystyles.css" rel="stylesheet"> -->
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,7 +26,9 @@
     
 
     <style>
-
+        body {
+            background: gray;
+        }
         .container {
             margin-top: 100px;
 
@@ -40,6 +44,10 @@
         #quoteText, #quoteAuthor, #nextButton {
             color:white;
         }
+        #twitButton {
+            background:white;
+        }
+
          
     </style>
 
@@ -67,9 +75,18 @@
 
             </div>
             <div class="row row-content center-block">
-                <div class="col-md-12 col-md-offset-5">
+                <div class="col-md-5 col-md-offset-5">
                     <button id="nextButton" class="btn btn-secondary" >Next Quote</button> 
                     <!--onclick="nextQuote()"-->
+                </div>
+                <div class="col-md-2">
+
+
+<a id="twitButton" class="btn btn-social-icon btn-twitter pull-right"
+  href="https://twitter.com/intent/tweet?text=One%20man%20has%20enthusiasm%20for%20…%20who%20makes%20a%20success%20of%20his%20life.%20-%20Edward%20B.%20Butler"
+  data-size="large">
+<span class="fa fa-twitter"></span></a>
+
                 </div>
             </div>
 
@@ -127,6 +144,8 @@
                 quoteAuthor.removeChild(currentAuthor);
             }
 
+
+
             function plusOne(){
                         if (curr < (quotes.length-1)) {
                             curr++;
@@ -136,15 +155,28 @@
             }
 
             $("#nextButton").click(function() {
-                var newCol = "rgba("+rgba()+",1)"
+                var newCol = "rgba("+rgba()+",1)";
+
+
                 plusOne();
                 $("#currQuote").fadeOut(200, function() {
                         removeQuotes();
                 });
+
+
                $("#currQuote").fadeIn(200, function() {
                         initQuotes();
+
+                        var currentQuote = document.getElementById("quoteText").lastChild;
+                        var currentAuthor = document.getElementById("quoteAuthor").lastChild;
+
                         document.getElementsByTagName("body")[0].style.backgroundColor = newCol;
                         document.getElementById("nextButton").style.backgroundColor = newCol;
+                        document.getElementById("twitButton").style.backgroundColor = newCol;
+
+                        document.getElementById("twitButton").href = 
+                        "https://twitter.com/intent/tweet?text="
+                        +currentQuote.innerHTML+" - "+currentAuthor.innerHTML;
                 });
 
                $("body").fadeTo(1200, function() {                     
